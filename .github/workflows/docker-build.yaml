@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: code
-          file: Dockerfile
+          file: code/Dockerfile
           platforms: linux/amd64
           push: false
           tags: mathisve/go-sample-app
