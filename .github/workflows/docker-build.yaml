@@ -22,7 +22,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: code
           file: Dockerfile
           platforms: linux/amd64
           push: false
