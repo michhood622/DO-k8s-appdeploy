@@ -3,5 +3,5 @@ kind: Secret
 metadata:
   name: pg-connection
 stringData:
-  CONN_STR: postgresql://postgres:POSTGRES-PASSWORD@postgresdb-postgresql/postgres
+  CONN_STR: postgresql://postgres:WJVw0Qp0D5@postgresdb-postgresql/postgres
 
