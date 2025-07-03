@@ -7,6 +7,10 @@ Add the cluster to your Kubeconfig
 doctl kubernetes cluster list
 doctl kubernetes cluster kubeconfig save 78287d0e-a0c4-4a9a-9dd5-a2cafc793ac7
 ```
+Check to see if cluster is up
+```
+kubectl get nodes
+```
 
 Install ingress-nginx controller
 ```
@@ -14,8 +18,20 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace --set controller.publishService.enabled=true
 ```
+Verify ingress has been created
+```
+kubectl get pods -n ingress-nginx
+```
 
-Create the CSI token secret in kube-system
+Create the CSI(Container Storage Interface) token secret in kube-system
+
+Need to goto Digital Ocean and create an API Token
+[here](https://cloud.digitalocean.com/account/api/tokens)
+
+Add the aforemetioned Token to the manifests/token-secret.yaml file and apply
+```
+kubectl apply -f manifests/token-secret.yaml
+```
 
 Deploy the CSI controller and sidecar
 ```
@@ -25,8 +41,12 @@ Verify the creation of CSI that is being created in kube-system
 ```
 kubectl get pods -n kube-system
 ```
+Check the Storage class that was created
+```
+kubectl get sc
+```
 
-Configure the actual PVC
+Configure the actual PVC(Persistent Volume Claim) 5GB 
 ```
 kubectl apply -f manifests/test-storage.yaml
 ``` 
@@ -35,16 +55,22 @@ Verify Storage
 ```
 kubectl get pvc
 ```
+Cerify the created storage in the DO webUI [here](https://cloud.digitalocean.com/volumes?i=5d1555)
 
-Add postgres chart (bitnami)
+
+Add postgres chart (bitnami) used to install Postgres
 ```
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
 
-Create PVCs - Create Persistent Volume 50GB for postgresDB
+Create PVCs - Create Persistent Volume Claim 50GB for postgresDB
 ```
 kubectl apply -f manifests/postgres-pv.yaml
+```
+Verify PVC Creation
+```
+kubectl get pvc
 ```
 
 Install postgres helm chart
@@ -56,10 +82,15 @@ Verify postgress POD is running
 kubectl get pods
 ```
 
+helm should have created a secrets entry
+```
+kubectl get secrets
+```
+
 Get postgres password
 ```
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace default postgresdb-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
-echo POSTGRES_PASSWORD
+echo $POSTGRES_PASSWORD
 ```
 
 Create postgres connection string secret
