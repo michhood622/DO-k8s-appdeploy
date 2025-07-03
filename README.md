@@ -93,6 +93,9 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace default postgresdb-pos
 echo $POSTGRES_PASSWORD
 ```
 
+Inject the postgresDB password into the postgres-connection.yaml file
+
+
 Create postgres connection string secret
 ```
 Kubectl apply -f manifests/postgres-connection.yaml
