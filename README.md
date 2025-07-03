@@ -113,11 +113,23 @@ Verify POD Creation
 ```
 kubectl get pods
 ```
+kubectl logs do-sample-app-676767688b-8jrm7
+```
 
 Validate that the application works
 ```
 kubectl get svc
 kubectl port-forward svc/do-sample-app-service 8080:8080
+```
+
+Prove that we are levaraging our postgressDB
+Open a new terminal window and restart our PODS
+```
+kubectl get deploy
+```
+kubectl rollout restart deploy/do-sample-app
+```
+kubectl get pods
 ```
 
 Deploy the ingress
