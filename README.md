@@ -53,7 +53,9 @@ kubectl port-forward svc/do-sample-app-service 8080:8080
 Deploy the ingress
 
 Point DNS CNAME to the ingress IP address
-
+```
+http://do-sample-app.michhood622.com/
+```
 Success :)
 
 
