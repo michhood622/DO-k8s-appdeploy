@@ -21,6 +21,20 @@ Deploy the CSI controller and sidecar
 ```
 kubectl apply -fhttps://raw.githubusercontent.com/digitalocean/csi-digitalocean/master/deploy/kubernetes/releases/csi-digitalocean-v4.9.0/{crds.yaml,driver.yaml,snapshot-controller.yaml}
 ```
+Verify the creation of CSI that is being created in kube-system
+```
+kubectl get pods -n kube-system
+```
+
+Configure the actual PVC
+```
+kubectl apply -f manifests/test-storage.yaml
+``` 
+
+Verify Storage
+```
+kubectl get pvc
+```
 
 Add postgres chart (bitnami)
 ```
@@ -28,11 +42,18 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
 
-Create PVCs
+Create PVCs - Create Persistent Volume 50GB for postgresDB
+```
+kubectl apply -f manifests/postgres-pv.yaml
+```
 
 Install postgres helm chart
 ```
 helm install postgresdb bitnami/postgresql --set persistence.existingClaim=postgresql-pv-claim --set volumePermissions.enabled=true
+```
+Verify postgress POD is running
+```
+kubectl get pods
 ```
 
 Get postgres password
@@ -42,15 +63,33 @@ echo POSTGRES_PASSWORD
 ```
 
 Create postgres connection string secret
+```
+Kubectl apply -f manifests/postgres-connection.yaml
+```
+Verify Secret was created
+```
+kubectl get secret
+```
 
 Deploy the application
+```
+Kubectl apply -f manifests/application.yaml
+```
+Verify POD Creation
+```
+kubectl get pods
+```
 
 Validate that the application works
 ```
+kubectl get svc
 kubectl port-forward svc/do-sample-app-service 8080:8080
 ```
 
 Deploy the ingress
+```
+kubectl apply -f manifests/ingress.yaml
+```
 
 Point DNS CNAME to the ingress IP address
 ```
