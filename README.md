@@ -5,6 +5,8 @@ Create a Kubernetes cluster [here](https://cloud.digitalocean.com/kubernetes/clu
 Add the cluster to your Kubeconfig
 ```
 doctl kubernetes cluster list
+```
+```
 doctl kubernetes cluster kubeconfig save 78287d0e-a0c4-4a9a-9dd5-a2cafc793ac7
 ```
 Check to see if cluster is up
@@ -15,7 +17,11 @@ kubectl get nodes
 Install ingress-nginx controller
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+```
+```
 helm repo update
+```
+```
 helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace --set controller.publishService.enabled=true
 ```
 Verify ingress has been created
@@ -61,6 +67,8 @@ Cerify the created storage in the DO webUI [here](https://cloud.digitalocean.com
 Add postgres chart (bitnami) used to install Postgres
 ```
 helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+```
 helm repo update
 ```
 
