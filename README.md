@@ -116,12 +116,14 @@ Verify POD Creation
 ```
 kubectl get pods
 ```
+```
 kubectl logs do-sample-app-676767688b-8jrm7
 ```
 
 Validate that the application works
 ```
 kubectl get svc
+```
 ```
 kubectl port-forward svc/do-sample-app-service 8080:8080
 ```
@@ -152,8 +154,5 @@ Success :)
 
 
 Next steps:
-- Install Cert Manager
 - Install Monitoring solution
 - Install Logging solution
-- Improve security
-- Set up CI/CD, Helm chart, etc
