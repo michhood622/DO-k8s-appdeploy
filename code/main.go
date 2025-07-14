@@ -54,7 +54,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := PageData{
-		Title:   "Hello, Go Server!",
+		Title:   "Hello, ABC Corp Go Server!",
 		Message: "This is server-side rendered content in Go.",
 		Posts:   posts,
 	}
