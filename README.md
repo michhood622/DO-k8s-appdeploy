@@ -1,6 +1,13 @@
 # k8s-on-digital-ocean
 
-Create a Kubernetes cluster [here](https://cloud.digitalocean.com/kubernetes/clusters?i=ebdc0a).
+- [x] Create a Kubernetes cluster [here](https://cloud.digitalocean.com/kubernetes/clusters?i=ebdc0a).
+- [ ] Install Ingress Controller
+- [ ] Create the CSI(Container Storage Interface)
+- [ ] Configure Persistent Volumes
+- [ ] Install Postgres
+- [ ] Deploy Application
+- [ ] Configure Ingress to point to Domain
+
 
 Add the cluster to your Kubeconfig
 ```
@@ -31,7 +38,7 @@ kubectl get pods -n ingress-nginx
 
 Create the CSI(Container Storage Interface) token secret in kube-system
 
-Need to goto Digital Ocean and create an API Token
+First you need to goto Digital Ocean and create an API Token
 [here](https://cloud.digitalocean.com/account/api/tokens)
 
 Add the aforemetioned Token to the manifests/token-secret.yaml file and apply
